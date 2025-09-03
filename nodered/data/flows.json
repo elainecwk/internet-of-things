@@ -1,0 +1,118 @@
+[
+    {
+        "id": "dc9d5d534fab6eb2",
+        "type": "tab",
+        "label": "Fluxo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "607da66db889fa93",
+        "type": "mqtt-broker",
+        "name": "Mosquitto",
+        "broker": "mosquitto",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "4c35974a37f3211f",
+        "type": "debug",
+        "z": "dc9d5d534fab6eb2",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "ebaebbe55c0893f4",
+        "type": "function",
+        "z": "dc9d5d534fab6eb2",
+        "name": "function 1",
+        "func": "var obj = {};\n\nobj.id = msg.id;\nobj.createAt = new Date();\nobj.message = {};\nobj.message.temperature = msg.payload.t;\nobj.message.humidity = msg.payload.umid;\nobj.message.topic = msg.topic;\n\nreturn obj;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 320,
+        "wires": [
+            [
+                "4c35974a37f3211f"
+            ]
+        ]
+    },
+    {
+        "id": "db829189fd79a130",
+        "type": "uuid",
+        "z": "dc9d5d534fab6eb2",
+        "uuidVersion": "v4",
+        "namespaceType": "",
+        "namespace": "",
+        "namespaceCustom": "",
+        "name": "",
+        "field": "id",
+        "fieldType": "msg",
+        "x": 390,
+        "y": 240,
+        "wires": [
+            [
+                "ebaebbe55c0893f4"
+            ]
+        ]
+    },
+    {
+        "id": "27838cf1f6ac63ae",
+        "type": "mqtt in",
+        "z": "dc9d5d534fab6eb2",
+        "name": "",
+        "topic": "#",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "607da66db889fa93",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 160,
+        "wires": [
+            [
+                "db829189fd79a130"
+            ]
+        ]
+    }
+]
